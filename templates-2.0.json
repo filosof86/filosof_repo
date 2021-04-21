@@ -10,8 +10,8 @@
 			"platform": "linux",
 			"logo": "https://s.dou.ua/CACHE/images/img/static/companies/PortaOne_w/5f3aba290d0ebca5d7eb39712fbd7a33.png",
 			"repository": {
-				"url": "https://github.com/portainer/templates",
-				"stackfile": "stacks/microsoft-oms/docker-stack.yml"
+				"url": "https://github.com/filosof86/filosof_repo",
+				"stackfile": "docker-stack.yml"
 			},
 			"env": [{
 					"name": "AZURE_WORKSPACE_ID",
