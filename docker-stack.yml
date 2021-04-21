@@ -13,7 +13,7 @@ services:
       restart_policy:
         condition: on-failure
     secrets:                    # secrets block only for 'web' service
-     - my_external_secret
+     - my_secret
      - my_file_secret
     ports:
       - "25225:25225"
