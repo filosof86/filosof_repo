@@ -1,0 +1,30 @@
+{
+	"version": "2",
+	"templates": [{
+			"type": 2,
+			"title": "PORTA (Based on microsoft-oms)",
+			"description": "PORTA ONE test to show screen shots",
+			"categories": [
+				"OPS"
+			],
+			"platform": "linux",
+			"logo": "https://s.dou.ua/CACHE/images/img/static/companies/PortaOne_w/5f3aba290d0ebca5d7eb39712fbd7a33.png",
+			"repository": {
+				"url": "https://github.com/portainer/templates",
+				"stackfile": "stacks/microsoft-oms/docker-stack.yml"
+			},
+			"env": [{
+					"name": "AZURE_WORKSPACE_ID",
+					"label": "Some workspace ID which can be defined",
+					"description": "Workspace ID",
+                                        "set": true
+
+				},
+				{
+					"name": "AZURE_PRIMARY_KEY",
+					"label": "Some key value that can be defined",
+					"description": "Primary key"
+				}
+			]
+		}]
+}
