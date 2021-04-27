@@ -4,7 +4,7 @@
 			"type": 2,
 			"title": "PORTA (Based on microsoft-oms)",
 			"description": "PORTA ONE test to show screen shots",
-		        "note": "This application requires the sencetive information like password to be defined as the docker secrets. Please refer to the 'Secrets' tab to add a new secret.",
+		        "note": "This application requires the sencetive information like password to be defined as the docker secrets before deplying the application. Please refer to the 'Secrets' tab to add a new secret.",
 			"categories": [
 				"OPS"
 			],
