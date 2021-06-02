@@ -5,18 +5,26 @@ services:
   bi-agent-${I_ENV}:
     image: porta-bi-ext/bi-agent:latest-prod
     volumes:
-      ${ORACL_PATH:-/dev/null}:${VARIABLE:-/tmp}/app/folder
       - portabi_data:/data
     environment:
-      WSID: ${AZURE_WORKSPACE_ID}
-      KEY: ${AZURE_PRIMARY_KEY}
+      SFTP_URL: ${SFTP_URL}
+      SFTP_LOGIN: ${SFTP_LOGIN}
+      PB_ADMIN_URL: ${PB_ADMIN_URL}
+      DB_DSN: ${DB_DSN}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      I_ENV: ${I_ENV}
     deploy:
       mode: replicated
       replicas: 1
       placement:
         constraints: [node_name.PortaAdmin == true]
     secrets:
-     - sftp_key
+      - sftp_key
+    logging:
+      driver: syslog
+      options:
+        tag: "bi-agent-${I_ENV}"
 secrets:
   sftp_key:
     external: true
