@@ -11,7 +11,7 @@
 			"platform": "linux",
 			"logo": "https://git.portaone.com:29999/public/portainer/raw/branch/master/app/PortaBI/PortaBI_logo.png",
 			"repository": {
-				"url": "https://git.portaone.com:29999/public/portainer",
+				"url": "https://github.com/filosof86/filosof_repo",
 				"stackfile": "app/PortaBI/docker-stack.yml"
 			},
 			"env": [
