@@ -27,7 +27,7 @@ services:
       I_ENV: ${I_ENV}
       SSH_KEY: ${SSH_KEY}
       EXPORT_START_DATE: ''
-      SKIP_ENTITY_PREFIX: zzzPorta
+      SKIP_ENTITY_PREFIX: zzzPorta1
       SFTP_PARAMS: ''
       MAX_UPLOAD_RETRIES: 3
       DBI_TRACE: 0
