@@ -2,29 +2,62 @@
 	"version": "2",
 	"templates": [{
 			"type": 2,
-			"title": "PORTA (Based on microsoft-oms)",
-			"description": "PORTA ONE test to show screen shots",
-		        "note": "This application requires the APP_MYSQL_PASSWORD=your_pass and APP_MYSQL_USER=your_username parameters to be defined as the docker secrets before deploying the application. Please refer to the 'Secrets' tab to add a new secret.",
+			"title": "PortaBI",
+			"description": "A user-friendly business intelligence tool, analyzing live data and reporting it all in a meaningful way.",
+		        "note": "Please fill the fields below before installing the application.",
 			"categories": [
-				"OPS"
+				"Data Analyze"
 			],
 			"platform": "linux",
-			"logo": "https://s.dou.ua/CACHE/images/img/static/companies/PortaOne_w/5f3aba290d0ebca5d7eb39712fbd7a33.png",
+			"logo": "https://git.portaone.com:29999/public/portainer/raw/branch/master/app/PortaBI/PortaBI_logo.png",
 			"repository": {
-				"url": "https://github.com/filosof86/filosof_repo",
-				"stackfile": "docker-stack.yml"
+				"url": "https://git.portaone.com:29999/public/portainer",
+				"stackfile": "app/PortaBI/docker-stack.yml"
 			},
-			"env": [{
-					"name": "AZURE_WORKSPACE_ID",
-					"label": "Some workspace ID which can be defined",
-					"description": "Workspace ID",
-                                        "set": true
-
+			"env": [
+				{
+					"name": "SFTP_URL",
+					"label": "Sftp URL",
+					"description": "Sftp URL"
 				},
 				{
-					"name": "AZURE_PRIMARY_KEY",
-					"label": "Some key value that can be defined",
-					"description": "Primary key"
+					"name": "SFTP_LOGIN",
+					"label": "Sftp login",
+					"description": "Sftp login"
+				},
+				{
+					"name": "PB_ADMIN_URL",
+					"label": "Admin URL",
+					"description": "Porta Billing Admin URL"
+				},
+				{
+					"name": "DB_DSN",
+					"label": "DB DSN",
+					"description": "Database DSN"
+				},
+				{
+					"name": "DB_USER",
+					"label": "DB User",
+					"description": "Database Username"
+				},
+				{
+					"name": "DB_PASSWORD",
+					"label": "DB Password",
+					"description": "Database Password"
+				},
+				{
+					"name": "I_ENV",
+					"label": "PB Environment ID",
+					"description": "Porta Billing Env ID assosiated with the current service"
+				},
+				{
+					"name": "SSH_KEY",
+					"label": "SSH Key for sftp connection",
+					"description": "SSH Key for sftp connection"
+				},
+				{
+					"name": "PATH_TO_ORA_TNSNAMES",
+					"label": "Oracle tnsnames path"
 				}
 			]
 		}]
