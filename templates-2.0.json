@@ -9,7 +9,7 @@
 				"Data Analyze"
 			],
 			"platform": "linux",
-			"logo": "https://raw.githubusercontent.com/filosof86/filosof_repo/main/apps/PortaBI/PortaLogoPlaceholder.png",
+			"logo": "https://raw.githubusercontent.com/filosof86/filosof_repo/main/apps/PortaBI/PortaLogoPlaceholder.pngdddd",
 			"repository": {
 				"url": "https://github.com/filosof86/filosof_repo",
 				"stackfile": "apps/PortaBI/docker-stack.yml"
