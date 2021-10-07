@@ -2,14 +2,14 @@
 	"version": "2",
 	"templates": [{
 			"type": 2,
-			"title": "PortaBII",
+			"title": "PortaBI",
 			"description": "A user-friendly business intelligence tool, analyzing live data and reporting it all in a meaningful way.",
 		        "note": "Please fill the fields below before installing the application.",
 			"categories": [
 				"Data Analyze"
 			],
 			"platform": "linux",
-			"logo": "https://raw.githubusercontent.com/filosof86/filosof_repo/main/apps/PortaBI/",
+			"logo": "https://raw.githubusercontent.com/filosof86/filosof_repo/main/apps/PortaBI/PortaLogoPlaceholder.png",
 			"repository": {
 				"url": "https://github.com/filosof86/filosof_repo",
 				"stackfile": "apps/PortaBI/docker-stack.yml"
