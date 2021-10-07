@@ -2,7 +2,7 @@
 	"version": "2",
 	"templates": [{
 			"type": 2,
-			"title": "PortaBI",
+			"title": "PortaBII",
 			"description": "A user-friendly business intelligence tool, analyzing live data and reporting it all in a meaningful way.",
 		        "note": "Please fill the fields below before installing the application.",
 			"categories": [
