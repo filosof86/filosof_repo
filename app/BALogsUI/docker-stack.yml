@@ -1,0 +1,56 @@
+version: '3.3'
+
+services:
+  ba-logs-ui:
+    image: registry.portaone.com/porta-common/ba-logs-ui:prod
+    healthcheck:
+      test: "curl -s -k -I -H \"Accept: application/json\"  https://localhost:3000/api/health | grep -q \"200 OK\" && echo \"Grafana health is OK\" || exit 1"
+      interval: 1m
+      timeout: 30s
+      retries: 10
+    environment:
+      ELASTICSEARCH_URL: http://10.0.2.15:9200
+      DEFAULT_USER_LOGIN: filosof
+      DEFAULT_USER_PASSWORD: 1234
+      DOMAIN_NAME_FOR_UI: etsys.vms
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints: [node.labels.node_name.Elasticsearch == true]
+    logging:
+      driver: local
+    ports:
+      - target: 3000
+        published: ${GRAFANA_PORT:-3005}
+        protocol: tcp
+        mode: ingress
+  ba-logs-ui-nginx:
+    image: nginx
+    volumes:
+      - type: bind
+        source: ${NGINX_CERT_PATH:-/dev/null}
+        target: /etc/ssl/certs/grafana.crt
+        read_only: true
+      - type: bind
+        source: ${NGINX_KEY_PATH:-/dev/null}
+        target: /etc/ssl/certs/grafana.key
+        read_only: true
+      - type: bind
+        source: ${NGINX_CFG_PATH:-/dev/null}
+        target: /etc/nginx/conf.d/balogs-grafana-nginx.conf
+        read_only: true
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints: [node.labels.node_name.Elasticsearch == true]
+    logging:
+      driver: local
+    ports:
+      - target: 3005
+        published: ${NGINX_PORT:-3003}
+        protocol: tcp
+        mode: ingress
+    depends_on:
+      - "ba-logs-ui"
