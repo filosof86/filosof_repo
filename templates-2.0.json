@@ -1,64 +1,261 @@
 {
-	"version": "2",
-	"templates": [{
-			"type": 2,
-			"title": "PortaBI",
-			"description": "A user-friendly business intelligence tool, analyzing live data and reporting it all in a meaningful way.",
-		        "note": "Please fill the fields below before installing the application.",
-			"categories": [
-				"Data Analyze"
-			],
-			"platform": "linux",
-			"logo": "https://raw.githubusercontent.com/filosof86/filosof_repo/main/apps/PortaBI/PortaLogoPlaceholder.png",
-			"repository": {
-				"url": "https://github.com/filosof86/filosof_repo",
-				"stackfile": "apps/PortaBI/docker-stack.yml"
-			},
-			"env": [
-				{
-					"name": "SFTP_URL",
-					"label": "Sftp URL",
-					"description": "Sftp URL"
-				},
-				{
-					"name": "SFTP_LOGIN",
-					"label": "Sftp login",
-					"description": "Sftp login"
-				},
-				{
-					"name": "PB_ADMIN_URL",
-					"label": "Admin URL",
-					"description": "Porta Billing Admin URL"
-				},
-				{
-					"name": "DB_DSN",
-					"label": "DB DSN",
-					"description": "Database DSN"
-				},
-				{
-					"name": "DB_USER",
-					"label": "DB User",
-					"description": "Database Username"
-				},
-				{
-					"name": "DB_PASSWORD",
-					"label": "DB Password",
-					"description": "Database Password"
-				},
-				{
-					"name": "I_ENV",
-					"label": "PB Environment ID",
-					"description": "Porta Billing Env ID assosiated with the current service"
-				},
-				{
-					"name": "SSH_KEY",
-					"label": "SSH Key for sftp connection",
-					"description": "SSH Key for sftp connection"
-				},
-				{
-					"name": "PATH_TO_ORA_TNSNAMES",
-					"label": "Oracle tnsnames path"
-				}
-			]
-		}]
+    "version": "2",
+    "templates": [{
+            "type": 2,
+            "title": "PortaBI",
+            "description": "A user-friendly business intelligence tool, analyzing live data and reporting it all in a meaningful way.",
+            "note": "Please fill the fields below before installing the application.",
+            "categories": [
+                "Data Analyze"
+            ],
+            "platform": "linux",
+            "logo": "https://git.portaone.com:29999/public/portainer/raw/branch/master/porta_default_app_logo.png",
+            "repository": {
+                "url": "https://git.portaone.com:29999/public/portainer",
+                "stackfile": "latest/app/PortaBI/docker-stack.yml"
+            },
+            "env": [
+                {
+                    "name": "SFTP_URL",
+                    "label": "Sftp URL",
+                    "description": "Sftp URL"
+                },
+                {
+                    "name": "SFTP_LOGIN",
+                    "label": "Sftp login",
+                    "description": "Sftp login"
+                },
+                {
+                    "name": "PB_ADMIN_URL",
+                    "label": "Admin URL",
+                    "description": "Porta Billing Admin URL"
+                },
+                {
+                    "name": "DB_DSN",
+                    "label": "DB DSN",
+                    "description": "Database DSN"
+                },
+                {
+                    "name": "DB_USER",
+                    "label": "DB User",
+                    "description": "Database Username"
+                },
+                {
+                    "name": "DB_PASSWORD",
+                    "label": "DB Password",
+                    "description": "Database Password"
+                },
+                {
+                    "name": "I_ENV",
+                    "label": "PB Environment ID",
+                    "description": "Porta Billing Env ID associated with the current service"
+                },
+                {
+                    "name": "SSH_KEY",
+                    "label": "SSH Key for sftp connection",
+                    "description": "SSH Key for sftp connection"
+                },
+                {
+                    "name": "PATH_TO_ORA_TNSNAMES",
+                    "label": "Oracle tnsnames path"
+                }
+            ]
+        },
+        {
+            "type": 2,
+            "title": "BALogsUI",
+            "description": "Grafana interface (an open source analytics & monitoring solution providing easy access (search, download) to the BillingAdmin logs)",
+            "note": "Please complete all the fields (like 'Elasticsearch URL') before installing the application. If you release is lower than mr100-2,mr101-1,mr103-0+ clean up 'NGINX*' and 'port' fields",
+            "categories": [
+                "BillingAdmin Logs"
+            ],
+            "platform": "linux",
+            "logo": "https://git.portaone.com:29999/public/portainer/raw/branch/master/porta_default_app_logo.png",
+            "repository": {
+                "url": "https://git.portaone.com:29999/public/portainer",
+                "stackfile": "latest/app/BALogsUI/docker-stack.yml"
+            },
+            "env": [
+                {
+                    "name": "ELASTICSEARCH_URL",
+                    "label": "Elasticsearch URL",
+                    "description": "The URL of the Elasticsearch instance where BA logs data is stored"
+                },
+                {
+                    "name": "DEFAULT_USER_LOGIN",
+                    "label": "Default user login",
+                    "description": "The default user login for the Grafana web interface, 4 characters or longer"
+                },
+                {
+                    "name": "DEFAULT_USER_PASSWORD",
+                    "label": "Default user password",
+                    "description": "TheThe default user password for the Grafana web interface, 4 characters or longer"
+                },
+                {
+                    "name": "DOMAIN_NAME_FOR_UI",
+                    "label": "Domain name for Grafana",
+                    "description": "The domain name of the server where Grafana is deployed (will be used to generate the SSL certificate)"
+                },
+		{
+                    "name": "NGINX_CERT_PATH",
+                    "label": "Nginx certificate path",
+                    "description": "Path to Nginx certificate. This field should be cleared up for releases lower than mr100-2,mr101-1,mr103-0+",
+		    "default": "/porta_var/balogs-grafana-configs/balogs-grafana-nginx.crt"
+                },
+                {
+                    "name": "NGINX_KEY_PATH",
+                    "label": "Nginx SSL key path",
+                    "description": "Path to Nginx SSL key. This field should be cleared up for releases lower than mr100-2,mr101-1,mr103-0+",
+		    "default": "/porta_var/balogs-grafana-configs/balogs-grafana-nginx.key"
+                },
+		{
+                    "name": "NGINX_CFG_PATH",
+                    "label": "Nginx config path",
+                    "description": "Path to Nginx configuration file. This field should be cleared up for releases lower than mr100-2,mr101-1,mr103-0+",
+		    "default": "/porta_var/balogs-grafana-configs/balogs-grafana-nginx.conf"
+                },
+                {
+                    "name": "GRAFANA_PORT",
+                    "label": "Port for Grafana",
+                    "description": "Port for Grafana. This field should be cleared up for releases lower than mr100-2,mr101-1,mr103-0+",
+		    "default": "3003"
+                },
+		{
+                    "name": "NGINX_PORT",
+                    "label": "Port for Nginx proxy",
+                    "description": "Port for Nginx proxy used to access Grafana. This field should be cleared up for releases lower than mr100-2,mr101-1,mr103-0+",
+		    "default": "3005"
+                }
+            ]
+        },
+		  {
+            "type": 2,
+            "title": "BALogsUI (passwordless)",
+            "description": "Grafana interface (an open source analytics & monitoring solution providing easy access (search, download) to the BillingAdmin logs)",
+            "note": "(!) Active in mr100-2,mr101-1,mr103-0+. Please complete all the fields (like 'Elasticsearch URL') before installing the application",
+            "categories": [
+                "BillingAdmin Logs"
+            ],
+            "platform": "linux",
+            "logo": "https://git.portaone.com:29999/public/portainer/raw/branch/master/porta_default_app_logo.png",
+            "repository": {
+                "url": "https://git.portaone.com:29999/public/portainer",
+                "stackfile": "latest/app/BALogsUI/docker-stack.yml"
+            },
+            "env": [
+                {
+                    "name": "ELASTICSEARCH_URL",
+                    "label": "Elasticsearch URL",
+                    "description": "The URL of the Elasticsearch instance where BA logs data is stored"
+                },
+                {
+                    "name": "DEFAULT_USER_LOGIN",
+                    "label": "Default user login",
+                    "description": "The default user login for the Grafana web interface, 4 characters or longer"
+                },
+                {
+                    "name": "DEFAULT_USER_PASSWORD",
+                    "label": "Default user password",
+                    "description": "TheThe default user password for the Grafana web interface, 4 characters or longer"
+                },
+                {
+                    "name": "DOMAIN_NAME_FOR_UI",
+                    "label": "Domain name for Grafana",
+                    "description": "The domain name of the server where Grafana is deployed (will be used to generate the SSL certificate)"
+                }
+            ]
+        },
+        {
+            "type": 2,
+            "title": "BALogsSupervisor",
+            "description": "The service for reindexing and removing old BillingAdmin logs stored in the Elasticsearch",
+            "note": "Please complete all the mandatory fields (like 'Elasticsearch Node') before installing the application",
+            "categories": [
+                "BillingAdmin Logs"
+            ],
+            "platform": "linux",
+            "logo": "https://git.portaone.com:29999/public/portainer/raw/branch/master/porta_default_app_logo.png",
+            "repository": {
+                "url": "https://git.portaone.com:29999/public/portainer",
+                "stackfile": "latest/app/BALogsSupervisor/docker-stack.yml"
+            },
+            "env": [
+                {
+                    "name": "ES_NODES",
+                    "label": "Elasticsearch Node",
+                    "description": "The Elasticsearch master node (in the format '<IP_ADDR>:<PORT>') where logs will be saved"
+                },
+                {
+                    "name": "LOGS_CLEANUP_DAYS",
+                    "label": "Logs cleanup days",
+                    "description": "Delete logs that were saved more than N days ago",
+                    "default": "50"
+                },
+                {
+                    "name": "SUPERVISOR_PROCESSING_TIMEOUT_MIN",
+                    "label": "Processing timeout (minutes)",
+                    "description": "Try to delete/reindex logs every N minutes",
+                    "default": "60"
+                }
+            ]
+        },
+        {
+            "type": 2,
+            "title": "BALogsExporter",
+            "description": "The service for collecting logs from a BillingAdmin node and saving them in the Elasticsearch",
+            "note": "Please complete all the mandatory fields (like 'Elasticsearch Node') before installing the application",
+            "categories": [
+                "BillingAdmin Logs"
+            ],
+            "platform": "linux",
+            "logo": "https://git.portaone.com:29999/public/portainer/raw/branch/master/porta_default_app_logo.png",
+            "repository": {
+                "url": "https://git.portaone.com:29999/public/portainer",
+                "stackfile": "latest/app/BALogsExporter/docker-stack.yml"
+            },
+            "env": [
+                {
+                    "name": "ES_NODES",
+                    "label": "Elasticsearch Node",
+                    "description": " The Elasticsearch master node (in the format '<IP_ADDR>:<PORT>') where logs will be saved"
+                },
+                {
+                    "name": "EXPORTER_PROCESSING_TIMEOUT_SEC",
+                    "label": "Processing timeout (seconds)",
+                    "description": "Try to collect/save logs every N seconds",
+                    "default": "60"
+                }
+            ]
+        },
+        {
+            "type": 2,
+            "title": "API v2",
+            "description": "The API v2 service",
+            "categories": [],
+            "platform": "linux",
+            "logo": "https://git.portaone.com:29999/public/portainer/raw/branch/master/porta_default_app_logo.png",
+            "repository": {
+                "url": "https://git.portaone.com:29999/public/portainer",
+                "stackfile": "latest/app/APIv2/docker-stack.yml"
+            },
+            "env": [
+                {
+                    "name": "LISTEN_HTTP_IP",
+                    "label": "Service IP",
+                    "description": "Bind API gatewey service to this IP, to make it available via http"
+                },
+                {
+                    "name": "DB_IP",
+                    "label": "Database IP",
+                    "description": "IP for the porta-db-master hostname"
+                },
+                {
+                    "name": "REPLICAS",
+                    "label": "Number of PortaAdmin nodes",
+                    "description": "Ensure that service runs on every PortaAdmin node",
+                    "default": "1"
+                }
+            ]
+        }
+    ]
 }
