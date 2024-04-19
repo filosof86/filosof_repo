@@ -217,10 +217,7 @@
                 {
                     "name": "ES_NODES",
                     "label": "Elasticsearch Node",
-                    "description":
-			"The Elasticsearch master node where logs will be saved.
-			Format: {ip}:{port}
-			Example value: 10.0.2.15:9200"
+                    "description": "The Elasticsearch master node where logs will be saved. Format: {ip}:{port}. Example value: 10.0.2.15:9200"
                 },
                 {
                     "name": "EXPORTER_PROCESSING_TIMEOUT_SEC",
