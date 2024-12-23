@@ -256,6 +256,51 @@
                     "default": "1"
                 }
             ]
+        },
+	{
+            "type": 2,
+            "title": "Configurator API",
+            "name": "configurator-api",
+            "description": "API service for the configurator. Allows retrieval of parameters from the configuration, for example, to deploy other Portainer stacks.",
+            "categories": [
+                "API"
+            ],
+            "platform": "linux",
+            "logo": "https://git.portaone.com:29999/public/portainer/raw/branch/master/porta_default_app_logo.png",
+            "repository": {
+                "url": "https://git.portaone.com:29999/public/portainer",
+                "stackfile": "app/ConfiguratorAPI/docker-stack.yml"
+            },
+            "env": [
+                {
+                    "name": "LOG_LEVEL",
+                    "label": "Log Level",
+                    "description": "Logging level for the API. Available values: TRACE, DEBUG, INFO, WARNING, ERROR.",
+                    "default": "DEBUG"
+                },
+                {
+                    "name": "HOST",
+                    "label": "Host",
+                    "description": "The host IP address where the API will listen. Only one IP address can be specified. For network settings, use Allowed Networks.",
+                    "default": "0.0.0.0"
+                },
+                {
+                    "name": "ALLOWED_NETWORKS",
+                    "label": "Allowed Networks",
+                    "description": "Comma-separated list of networks allowed to access the API.",
+                    "default": "127.0.0.0/8,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+                },
+                {
+                    "name": "MONGODB_INITDB_ROOT_USERNAME",
+                    "label": "MongoDB Root Username",
+                    "description": "Initial root username for MongoDB. Note: Changing this after the database has been initialized will not change the actual username in the database. Must set together with the 'MongoDB Root Password'"
+                },
+                {
+                    "name": "MONGODB_INITDB_ROOT_PASSWORD",
+                    "label": "MongoDB Root Password",
+                    "description": "Initial root password for MongoDB. Note: Changing this after the database has been initialized will not change the password in the database; you will need to manually update it inside MongoDB. Must set together with the MongoDB Root Username'"
+                }
+            ]
         }
     ]
 }
