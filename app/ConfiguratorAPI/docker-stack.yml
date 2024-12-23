@@ -1,0 +1,97 @@
+# This is docker-compose for Portainer Stack
+version: '3.2'
+
+services:
+  configurator-api-core:
+    image: registry.portaone.com/porta-common/configurator-api-core:latest
+    ports:
+      - target: 8701
+        published: 8701
+        protocol: tcp
+        mode: ingress
+    networks:
+      - configurator_api_net
+    volumes:
+      # Directory for reading configuration files,
+      # including porta-agent.conf and agent .version file
+      - type: bind
+        source: /home/porta-configurator/etc
+        target: /home/porta-configurator/etc
+        read_only: true
+      # Base path used for constructing the path to configuration.idx,
+      # which depends on the agent IP and build number
+      - type: bind
+        source: /porta_var
+        target: /porta_var
+    depends_on:
+      - configurator-api-mongodb
+    deploy:
+      restart_policy:
+        delay: 10s
+        condition: any
+        max_attempts: 5
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "--insecure", "https://localhost:8701/health"]
+      interval: 20s
+      timeout: 5s
+      retries: 5
+    environment:
+      - MONGODB_INITDB_ROOT_USERNAME=${MONGODB_INITDB_ROOT_USERNAME}
+      - MONGODB_INITDB_ROOT_PASSWORD=${MONGODB_INITDB_ROOT_PASSWORD}
+      - DATABASE_NAME=cfgjson
+      - COLLECTION_NAME=configuration
+      - LOG_LEVEL=${LOG_LEVEL:-DEBUG}
+      - LOG_FILE_PATH=/porta_var/configurator_api/log/api.log
+      - AGENT_VERSION_FILE_PATH=/home/porta-configurator/etc/agent/.version
+      - PORTA_AGENT_CONF_FILE_PATH=/home/porta-configurator/etc/porta-agent.conf
+      - ALLOWED_NETWORKS=${ALLOWED_NETWORKS:-127.0.0.0/8,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16}
+      - REQUEST_TIMEOUT=300 #seconds
+      - PORT=8701
+      - HOST=${HOST:-0.0.0.0}
+      - SSL_KEY_PATH=/porta_var/certs/configurator_api.key
+      - SSL_CERT_PATH=/porta_var/certs/configurator_api.crt
+      - API_VERSION=1.0.0
+      - CONFIGURATOR_API_DIR=${CONFIGURATOR_API_DIR:-/porta_var/configurator_api}
+    logging:
+      driver: local
+
+  configurator-api-mongodb:
+    image: mongodb/mongodb-community-server:4.4.0-ubuntu2004-20240202T083309Z
+    networks:
+      - configurator_api_net
+    # Allows creating log files and writing logs without creating
+    # a MongoDB user on the host
+    user: "0:0"
+    command: --logpath /var/log/mongodb/mongodb.log --logappend
+    deploy:
+      resources:
+        # The database should use is up to 400MB,
+        # considering that the performance is satisfactory
+        limits:
+          memory: 400M
+      restart_policy:
+        delay: 10s
+        condition: any
+        max_attempts: 5
+    volumes:
+      - type: bind
+        source: /porta_var/configurator_api/log/mongodb
+        target: /var/log/mongodb
+      - type: bind
+        source: /porta_var/configurator_api/mongodb
+        target: /data/db
+    healthcheck:
+      test: [ "CMD", "mongo", "--eval", "db.adminCommand('ping')" ]
+      interval: 20s
+      timeout: 10s
+      retries: 5
+    environment:
+      # Can be left empty if authentication is not required
+      - MONGODB_INITDB_ROOT_USERNAME=${MONGODB_INITDB_ROOT_USERNAME}
+      - MONGODB_INITDB_ROOT_PASSWORD=${MONGODB_INITDB_ROOT_PASSWORD}
+
+networks:
+  configurator_api_net:
+    driver: overlay
+    internal: true
+    attachable: true
