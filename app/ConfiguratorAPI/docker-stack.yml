@@ -80,10 +80,10 @@ services:
         max_attempts: 5
     volumes:
       - type: bind
-        source: /porta_var/configurator_api/log/mongodb
+        source: /porta_var/tmp/configurator_api/log/mongodb
         target: /var/log/mongodb
       - type: bind
-        source: /porta_var/configurator_api/mongodb
+        source: /porta_var/tmp/configurator_api/mongodb
         target: /data/db
     healthcheck:
       test: [ "CMD", "mongo", "--eval", "db.adminCommand('ping')" ]
