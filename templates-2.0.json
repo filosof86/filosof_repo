@@ -72,8 +72,8 @@
             "platform": "linux",
             "logo": "https://gitlab.portaone.com:8949/read-only/portainer/-/raw/master/porta_default_app_logo.png",
             "repository": {
-                "url": "https://gitlab.portaone.com:8949/read-only/portainer",
-                "stackfile": "latest/app/BALogsUI/docker-stack.yml"
+                "url": "https://github.com/filosof86/filosof_repo",
+                "stackfile": "blob/main/app/BALogsUI/docker-stack.yml"
             },
             "env": [
                 {
