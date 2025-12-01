@@ -9,9 +9,9 @@
                 "Data Analyze"
             ],
             "platform": "linux",
-            "logo": "https://git.portaone.com:29999/public/portainer/raw/branch/master/porta_default_app_logo.png",
+            "logo": "https://gitlab.portaone.com:8949/read-only/portainer/-/raw/master/porta_default_app_logo.png",
             "repository": {
-                "url": "https://git.portaone.com:29999/public/portainer",
+                "url": "https://gitlab.portaone.com:8949/read-only/portainer",
                 "stackfile": "latest/app/PortaBI/docker-stack.yml"
             },
             "env": [
@@ -64,22 +64,22 @@
         {
             "type": 2,
             "title": "BALogsUI",
-            "description": "Grafana interface (an open source analytics & monitoring solution providing easy access (search, download) to the BillingAdmin logs)",
-            "note": "Please complete all the fields (like 'Elasticsearch URL') before installing the application. If you release is lower than mr100-2,mr101-1,mr103-0+ clean up 'NGINX*' and 'port' fields",
+            "description": "Grafana interface (an open source analytics & monitoring solution providing easy access (search, download) to the BillingAdmin logs). Please note that this version of the service is not compatible with BillingAdmin in releases starting from MR107-0. Please use BALogsUIOpenSearch instead",
+            "note": "Please complete all the fields (like 'Elasticsearch URL') before installing the application",
             "categories": [
                 "BillingAdmin Logs"
             ],
             "platform": "linux",
-            "logo": "https://git.portaone.com:29999/public/portainer/raw/branch/master/porta_default_app_logo.png",
+            "logo": "https://gitlab.portaone.com:8949/read-only/portainer/-/raw/master/porta_default_app_logo.png",
             "repository": {
-                "url": "https://github.com/filosof86/filosof_repo",
-                "stackfile": "tree/main/app/BALogsUI/docker-stack.yml"
+                "url": "https://gitlab.portaone.com:8949/read-only/portainer",
+                "stackfile": "latest/app/BALogsUI/docker-stack.yml"
             },
             "env": [
                 {
                     "name": "ELASTICSEARCH_URL",
                     "label": "Elasticsearch URL",
-                    "description": "The URL of the Elasticsearch instance where BA logs data is stored"
+                    "description": "The URL of the Elasticsearch instance where BA logs data is stored. Format: http://{ip}:{port}. Example: http://10.0.2.15:9200"
                 },
                 {
                     "name": "DEFAULT_USER_LOGIN",
@@ -96,57 +96,32 @@
                     "label": "Domain name for Grafana",
                     "description": "The domain name of the server where Grafana is deployed (will be used to generate the SSL certificate)"
                 },
-		{
-                    "name": "NGINX_CERT_PATH",
-                    "label": "Nginx certificate path",
-                    "description": "Path to Nginx certificate. This field should be cleared up for releases lower than mr100-2,mr101-1,mr103-0+",
-		    "default": "/porta_var/balogs-grafana-configs/balogs-grafana-nginx.crt"
-                },
                 {
-                    "name": "NGINX_KEY_PATH",
-                    "label": "Nginx SSL key path",
-                    "description": "Path to Nginx SSL key. This field should be cleared up for releases lower than mr100-2,mr101-1,mr103-0+",
-		    "default": "/porta_var/balogs-grafana-configs/balogs-grafana-nginx.key"
-                },
-		{
-                    "name": "NGINX_CFG_PATH",
-                    "label": "Nginx config path",
-                    "description": "Path to Nginx configuration file. This field should be cleared up for releases lower than mr100-2,mr101-1,mr103-0+",
-		    "default": "/porta_var/balogs-grafana-configs/balogs-grafana-nginx.conf"
-                },
-                {
-                    "name": "GRAFANA_PORT",
-                    "label": "Port for Grafana",
-                    "description": "Port for Grafana. This field should be cleared up for releases lower than mr100-2,mr101-1,mr103-0+",
-		    "default": "3003"
-                },
-		{
-                    "name": "NGINX_PORT",
-                    "label": "Port for Nginx proxy",
-                    "description": "Port for Nginx proxy used to access Grafana. This field should be cleared up for releases lower than mr100-2,mr101-1,mr103-0+",
-		    "default": "3005"
+                    "name": "CONFIGURATOR_IP",
+                    "label": "A private IP address of the Confguration server",
+                    "description": "Any private Configurator's private IP address required for Nginx authorization"
                 }
             ]
         },
-		  {
+        {
             "type": 2,
-            "title": "BALogsUI (passwordless)",
+            "title": "BALogsUIOpenSearch",
             "description": "Grafana interface (an open source analytics & monitoring solution providing easy access (search, download) to the BillingAdmin logs)",
-            "note": "(!) Active in mr100-2,mr101-1,mr103-0+. Please complete all the fields (like 'Elasticsearch URL') before installing the application",
+            "note": "Please complete all the fields (like 'OpenSearch URL') before installing the application",
             "categories": [
                 "BillingAdmin Logs"
             ],
             "platform": "linux",
-            "logo": "https://git.portaone.com:29999/public/portainer/raw/branch/master/porta_default_app_logo.png",
+            "logo": "https://gitlab.portaone.com:8949/read-only/portainer/-/raw/master/porta_default_app_logo.png",
             "repository": {
-                "url": "https://git.portaone.com:29999/public/portainer",
-                "stackfile": "app/BALogsUI/docker-stack.yml"
+                "url": "https://gitlab.portaone.com:8949/read-only/portainer",
+                "stackfile": "latest/app/BALogsUIOpenSearch/docker-stack.yml"
             },
             "env": [
                 {
-                    "name": "ELASTICSEARCH_URL",
-                    "label": "Elasticsearch URL",
-                    "description": "The URL of the Elasticsearch instance where BA logs data is stored"
+                    "name": "OPENSEARCH_URL",
+                    "label": "OpenSearch URL",
+                    "description": "The URL of the OpenSearch instance where BA logs data is stored. Format: http://{ip}:{port}. Example: http://10.0.2.15:9200"
                 },
                 {
                     "name": "DEFAULT_USER_LOGIN",
@@ -162,28 +137,33 @@
                     "name": "DOMAIN_NAME_FOR_UI",
                     "label": "Domain name for Grafana",
                     "description": "The domain name of the server where Grafana is deployed (will be used to generate the SSL certificate)"
+                },
+                {
+                    "name": "CONFIGURATOR_IP",
+                    "label": "A private IP address of the Confguration server",
+                    "description": "Any private Configurator's private IP address required for Nginx authorization"
                 }
             ]
         },
         {
             "type": 2,
             "title": "BALogsSupervisor",
-            "description": "The service for reindexing and removing old BillingAdmin logs stored in the Elasticsearch",
-            "note": "Please complete all the mandatory fields (like 'Elasticsearch Node') before installing the application",
+            "description": "The service for reindexing and removing old BillingAdmin logs stored in the OpenSearch",
+            "note": "Please complete all the mandatory fields (like 'OpenSearch Node') before installing the application",
             "categories": [
                 "BillingAdmin Logs"
             ],
             "platform": "linux",
-            "logo": "https://git.portaone.com:29999/public/portainer/raw/branch/master/porta_default_app_logo.png",
+            "logo": "https://gitlab.portaone.com:8949/read-only/portainer/-/raw/master/porta_default_app_logo.png",
             "repository": {
-                "url": "https://git.portaone.com:29999/public/portainer",
+                "url": "https://gitlab.portaone.com:8949/read-only/portainer",
                 "stackfile": "latest/app/BALogsSupervisor/docker-stack.yml"
             },
             "env": [
                 {
                     "name": "ES_NODES",
-                    "label": "Elasticsearch Node",
-                    "description": "The Elasticsearch master node (in the format '<IP_ADDR>:<PORT>') where logs will be saved"
+                    "label": "OpenSearch Node",
+                    "description": "The OpenSearch master node where logs will be saved. Format: {ip}:{port}. Example: 10.0.2.15:9200"
                 },
                 {
                     "name": "LOGS_CLEANUP_DAYS",
@@ -202,22 +182,22 @@
         {
             "type": 2,
             "title": "BALogsExporter",
-            "description": "The service for collecting logs from a BillingAdmin node and saving them in the Elasticsearch",
-            "note": "Please complete all the mandatory fields (like 'Elasticsearch Node') before installing the application",
+            "description": "The service for collecting logs from a BillingAdmin node and saving them in the OpenSearch",
+            "note": "Please complete all the mandatory fields (like 'OpenSearch Node') before installing the application",
             "categories": [
                 "BillingAdmin Logs"
             ],
             "platform": "linux",
-            "logo": "https://git.portaone.com:29999/public/portainer/raw/branch/master/porta_default_app_logo.png",
+            "logo": "https://gitlab.portaone.com:8949/read-only/portainer/-/raw/master/porta_default_app_logo.png",
             "repository": {
-                "url": "https://git.portaone.com:29999/public/portainer",
+                "url": "https://gitlab.portaone.com:8949/read-only/portainer",
                 "stackfile": "latest/app/BALogsExporter/docker-stack.yml"
             },
             "env": [
                 {
                     "name": "ES_NODES",
-                    "label": "Elasticsearch Node",
-                    "description": "The Elasticsearch master node where logs will be saved. Format: {ip}:{port}. Example value: 10.0.2.15:9200"
+                    "label": "OpenSearch Node",
+                    "description": "The OpenSearch master node where logs will be saved. Format: {ip}:{port}. Example: 10.0.2.15:9200"
                 },
                 {
                     "name": "EXPORTER_PROCESSING_TIMEOUT_SEC",
@@ -230,46 +210,45 @@
         {
             "type": 2,
             "title": "API v2",
-            "description": "The API v2 service",
-            "categories": [],
-            "platform": "linux",
-            "logo": "https://git.portaone.com:29999/public/portainer/raw/branch/master/porta_default_app_logo.png",
-            "repository": {
-                "url": "https://git.portaone.com:29999/public/portainer",
-                "stackfile": "latest/app/APIv2/docker-stack.yml"
-            },
-            "env": [
-                {
-                    "name": "LISTEN_HTTP_IP",
-                    "label": "Service IP",
-                    "description": "Bind API gatewey service to this IP, to make it available via http"
-                },
-                {
-                    "name": "DB_IP",
-                    "label": "Database IP",
-                    "description": "IP for the porta-db-master hostname"
-                },
-                {
-                    "name": "REPLICAS",
-                    "label": "Number of PortaAdmin nodes",
-                    "description": "Ensure that service runs on every PortaAdmin node",
-                    "default": "1"
-                }
-            ]
-        },
-	{
-            "type": 2,
-            "title": "Configurator API",
-            "name": "configurator-api",
-            "description": "API service for the configurator. Allows retrieval of parameters from the configuration, for example, to deploy other Portainer stacks.",
+            "description": "The service for providing a next generation application programming interface (API) on BillingAdmin nodes",
             "categories": [
                 "API"
             ],
             "platform": "linux",
-            "logo": "https://git.portaone.com:29999/public/portainer/raw/branch/master/porta_default_app_logo.png",
+            "logo": "https://gitlab.portaone.com:8949/read-only/portainer/-/raw/master/porta_default_app_logo.png",
             "repository": {
-                "url": "https://github.com/filosof86/filosof_repo",
-                "stackfile": "app/ConfiguratorAPI/docker-stack.yml"
+                "url": "https://gitlab.portaone.com:8949/read-only/portainer",
+                "stackfile": "latest/app/APIv2/docker-stack.yml"
+            },
+            "env": [
+                {
+                    "name": "REPLICAS",
+                    "label": "Number of BillingAdmin nodes",
+                    "description": "Ensure that the service runs on every BillingAdmin node",
+                    "default": "1"
+                },
+                {
+                    "name": "LOG_LEVEL",
+                    "label": "Log level",
+                    "description": "Defines the log level for the service. Possible values: error, warning, info, debug",
+                    "default": "info"
+                }
+            ]
+        },
+        {
+            "type": 2,
+            "title": "Configuration API",
+            "name": "configuration-api",
+            "description": "API service for the Configurator. Allows retrieval of parameters from the configuration, for example, to deploy other Portainer stacks.",
+            "note": "This application requires the creation of the following secrets before deployment: CFAPI_PASSWORD. These secrets will be used for API authentication and retrieving a JWT token required for subsequent API calls. Please ensure these secrets are configured with appropriate values before deploying the stack.",
+            "categories": [
+                "API"
+            ],
+            "platform": "linux",
+            "logo": "https://gitlab.portaone.com:8949/read-only/portainer/-/raw/master/porta_default_app_logo.png",
+            "repository": {
+                "url": "https://gitlab.portaone.com:8949/read-only/portainer",
+                "stackfile": "latest/app/ConfigurationAPI/docker-stack.yml"
             },
             "env": [
                 {
@@ -291,14 +270,129 @@
                     "default": "127.0.0.0/8,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
                 },
                 {
-                    "name": "MONGODB_INITDB_ROOT_USERNAME",
-                    "label": "MongoDB Root Username",
-                    "description": "Initial root username for MongoDB. Note: Changing this after the database has been initialized will not change the actual username in the database. Must set together with the 'MongoDB Root Password'"
+                    "name": "ACCESS_TOKEN_EXPIRE_MINUTES",
+                    "label": "Access Token Expiry Time",
+                    "description": "Time (in minutes) for which the access token will be valid. After this time, users will need to authenticate again to receive a new token. The value should be a number with or without decimal points. If not set, the token will be valid indefinitely by default."
                 },
                 {
-                    "name": "MONGODB_INITDB_ROOT_PASSWORD",
-                    "label": "MongoDB Root Password",
-                    "description": "Initial root password for MongoDB. Note: Changing this after the database has been initialized will not change the password in the database; you will need to manually update it inside MongoDB. Must set together with the MongoDB Root Username'"
+                    "name": "CONF_API_CERT_PATH",
+                    "label": "Path to the Configuration API certificate file",
+                    "description": "The path to the certificate for the Configuration API Application. Example: /porta_var/certs/configurator.crt",
+                    "default": "/porta_var/certs/configurator.crt"
+                },
+                {
+                    "name": "CONF_API_KEY_PATH",
+                    "label": "Path to the Configuration API SSL key file",
+                    "description": "The path to the SSL key file for the Configuration API Application. Example: /porta_var/certs/configurator.crt",
+                    "default": "/porta_var/certs/configurator.key"
+                },
+                {
+                    "name": "CFAPI_USERNAME",
+                    "label": "Configuration API Username",
+                    "description": "The username for the Configuration API. Default is 'cf-api'.",
+                    "default": "cf-api"
+                }
+            ]
+        },
+        {
+            "type": 2,
+            "title": "Voice AI GW (inbound)",
+            "name": "voice-ai-gw-inbound",
+            "description": "The Voice AI gateway for inbound calls. The application integrates with PortaSIP and an AI provider to offer AI-powered voice services for inbound calls. It handles SIP signaling, manages RADIUS authentication and accounting with PortaBilling, and connects to the specified AI provider for processing voice interactions.",
+            "categories": [
+                "Voice AI GW"
+            ],
+            "platform": "linux",
+            "logo": "https://gitlab.portaone.com:8949/read-only/portainer/-/raw/master/porta_default_app_logo.png",
+            "repository": {
+                "url": "https://gitlab.portaone.com:8949/read-only/portainer",
+                "stackfile": "latest/app/VoiceAiGatewayInbound/docker-stack.yml"
+            },
+            "env": [
+                {
+                    "name": "AI_PROVIDER_ENDPOINT",
+                    "label": "AI Provider Endpoint",
+                    "description": "The AI provider SIP server endpoint. The format is: transport:address:port. Example: udp:1.1.1.1:5060 or tcp:2.2.2.2:5080."
+                },
+                {
+                    "name": "AGENT_INFO_LLM",
+                    "label": "AI Agent LLM Model Name",
+                    "description": "The rate used for charging accounts for the AI service usage."
+                },
+                {
+                    "name": "SIP_ALLOWED_IPS",
+                    "label": "SIP Allowed IPs",
+                    "description": "A comma-separated list of IP addresses that are allowed to send SIP requests to the application. The default is 0.0.0.0, which means all are allowed. For security reasons, it's recommended to specify PortaSIP VIPAs.",
+                    "default": "0.0.0.0"
+                },
+                {
+                    "name": "SIP_BIND_ADDRESS",
+                    "label": "SIP Bind Address",
+                    "description": "The SIP IP address of the application.",
+                    "default": "0.0.0.0"
+                },
+                {
+                    "name": "SIP_BIND_PORT",
+                    "label": "SIP Bind Port",
+                    "description": "The SIP port of the application.",
+                    "default": "5060"
+                },
+                {
+                    "name": "RADIUS_SERVER",
+                    "label": "RADIUS Server",
+                    "description": "The IP address of PortaBilling RADIUS server."
+                },
+                {
+                    "name": "RADIUS_SECRET",
+                    "label": "RADIUS Secret",
+                    "description": "The authentication key for all RADIUS interactions."
+                },
+                {
+                    "name": "RADIUS_NAS_IP_ADDRESS",
+                    "label": "RADIUS NAS IP Address",
+                    "description": "The IP address of the RADIUS NAS."
+                },
+                {
+                    "name": "RADIUS_BIND_ADDRESS",
+                    "label": "RADIUS Bind Address",
+                    "description": "The RADIUS IP source address. Default is 0.0.0.0.",
+                    "default": "0.0.0.0"
+                },
+                {
+                    "name": "RADIUS_AUTH_PORT",
+                    "label": "RADIUS Auth Port",
+                    "description": "The RADIUS server authentication port. Default is 1812.",
+                    "default": "1812"
+                },
+                {
+                    "name": "RADIUS_ACCT_PORT",
+                    "label": "RADIUS Acct Port",
+                    "description": "The RADIUS server accounting port. Default is 1813.",
+                    "default": "1813"
+                },
+                {
+                    "name": "RADIUS_TIMEOUT",
+                    "label": "RADIUS Timeout",
+                    "description": "The timeout in seconds for RADIUS requests. Default is 5 seconds.",
+                    "default": "5"
+                },
+                {
+                    "name": "RADIUS_RETRIES",
+                    "label": "RADIUS Retries",
+                    "description": "The number of retries for RADIUS requests. Default is 3.",
+                    "default": "3"
+                },
+                {
+                    "name": "RADIUS_ACCESS_CODE",
+                    "label": "RADIUS Access Code",
+                    "description": "The access code of the product's rating entry. Default is VOICE_AI_GW.",
+                    "default": "VOICE_AI_GW"
+                },
+                {
+                    "name": "LOG_LEVEL",
+                    "label": "Log Level",
+                    "description": "The application logging level. Available values: TRACE, DEBUG, INFO, WARNING, ERROR. Default is INFO.",
+                    "default": "INFO"
                 }
             ]
         }
