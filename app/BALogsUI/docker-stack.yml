@@ -2,55 +2,51 @@ version: '3.3'
 
 services:
   ba-logs-ui:
-    image: registry.portaone.com/porta-common/ba-logs-ui:prod
+    image: registry.portaone.com/porta-common/ba-logs-ui-v2:latest
     healthcheck:
       test: "curl -s -k -I -H \"Accept: application/json\"  https://localhost:3000/api/health | grep -q \"200 OK\" && echo \"Grafana health is OK\" || exit 1"
       interval: 1m
       timeout: 30s
       retries: 10
     environment:
-      ELASTICSEARCH_URL: http://10.0.2.15:9200
-      DEFAULT_USER_LOGIN: filosof
-      DEFAULT_USER_PASSWORD: 1234
-      DOMAIN_NAME_FOR_UI: etsys.vms
+      OPENSEARCH_URL: ${OPENSEARCH_URL}
+      DEFAULT_USER_LOGIN: ${DEFAULT_USER_LOGIN:?DEFAULT_USER_LOGIN is required to deploy this stack}
+      DEFAULT_USER_PASSWORD: ${DEFAULT_USER_PASSWORD}
+      DOMAIN_NAME_FOR_UI: ${DOMAIN_NAME_FOR_UI}
     deploy:
       mode: replicated
       replicas: 1
       placement:
-        constraints: [node.labels.node_name.Elasticsearch == true]
+        constraints: [node.labels.node_name.Opensearch == true]
+    volumes:
+      - type: volume
+        source: ba_logs_grafana_data
+        target: /var/lib/grafana
     logging:
       driver: local
-    ports:
-      - target: 3000
-        published: ${GRAFANA_PORT:-3005}
-        protocol: tcp
-        mode: ingress
   ba-logs-ui-nginx:
-    image: nginx
-    volumes:
-      - type: bind
-        source: ${NGINX_CERT_PATH:-/dev/null}
-        target: /etc/ssl/certs/grafana.crt
-        read_only: true
-      - type: bind
-        source: ${NGINX_KEY_PATH:-/dev/null}
-        target: /etc/ssl/certs/grafana.key
-        read_only: true
-      - type: bind
-        source: ${NGINX_CFG_PATH:-/dev/null}
-        target: /etc/nginx/conf.d/balogs-grafana-nginx.conf
-        read_only: true
+    image: registry.portaone.com/porta-common/ba-logs-ui-nginx:latest
+    healthcheck:
+      test: "perl ssl_handler.pl --ssl-check -ssl-cert-path=/etc/ssl/certs/grafana.crt"
+      interval: 1m
+      timeout: 30s
+      retries: 10
+    environment:
+      CONFIGURATOR_IP: ${CONFIGURATOR_IP}
+      DOMAIN_NAME_FOR_UI: ${DOMAIN_NAME_FOR_UI}
     deploy:
       mode: replicated
       replicas: 1
       placement:
-        constraints: [node.labels.node_name.Elasticsearch == true]
+        constraints: [node.labels.node_name.Opensearch == true]
     logging:
       driver: local
     ports:
       - target: 3005
-        published: ${NGINX_PORT:-3003}
+        published: 3005
         protocol: tcp
         mode: ingress
     depends_on:
       - "ba-logs-ui"
+volumes:
+  ba_logs_grafana_data:
