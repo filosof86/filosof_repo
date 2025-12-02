@@ -25,7 +25,7 @@ services:
     logging:
       driver: local
   ba-logs-ui-nginx:
-    image: registry.portaone.com/porta-common/ba-logs-ui-nginx:latest
+    image: portaone.com/porta-common/ba-logs-ui-nginx:latest
     healthcheck:
       test: "perl ssl_handler.pl --ssl-check -ssl-cert-path=/etc/ssl/certs/grafana.crt"
       interval: 1m
