@@ -2,7 +2,7 @@ version: '3.3'
 
 services:
   ba-logs-ui:
-    image: portaone.com/porta-common/ba-logs-ui-v2:latest
+    image: registry.portaone.com/porta-common/ba-logs-ui-v2:latest
     healthcheck:
       test: "curl -s -k -I -H \"Accept: application/json\"  https://localhost:3000/api/health | grep -q \"200 OK\" && echo \"Grafana health is OK\" || exit 1"
       interval: 1m
@@ -25,7 +25,7 @@ services:
     logging:
       driver: local
   ba-logs-ui-nginx:
-    image: portaone.com/porta-common/ba-logs-ui-nginx:latest
+    image: registry.portaone.com/porta-common/ba-logs-ui-nginx:latest
     healthcheck:
       test: "perl ssl_handler.pl --ssl-check -ssl-cert-path=/etc/ssl/certs/grafana.crt"
       interval: 1m
