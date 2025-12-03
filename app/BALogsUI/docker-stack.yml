@@ -9,10 +9,10 @@ services:
       timeout: 30s
       retries: 10
     environment:
-      OPENSEARCH_URL: ${OPENSEARCH_URL}
-      DEFAULT_USER_LOGIN: ${DEFAULT_USER_LOGIN?}
-      DEFAULT_USER_PASSWORD: ${DEFAULT_USER_PASSWORD}
-      DOMAIN_NAME_FOR_UI: ${DOMAIN_NAME_FOR_UI}
+      OPENSEARCH_URL: $${OPENSEARCH_URL?}
+      DEFAULT_USER_LOGIN: $${DEFAULT_USER_LOGIN?}
+      DEFAULT_USER_PASSWORD: $${DEFAULT_USER_PASSWORD?}
+      DOMAIN_NAME_FOR_UI: $${DOMAIN_NAME_FOR_UI?}
     deploy:
       mode: replicated
       replicas: 1
