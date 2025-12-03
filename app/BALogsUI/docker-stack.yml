@@ -10,7 +10,7 @@ services:
       retries: 10
     environment:
       OPENSEARCH_URL: ${OPENSEARCH_URL}
-      DEFAULT_USER_LOGIN: ${DEFAULT_USER_LOGIN:?DEFAULT_USER_LOGIN is required to deploy this stack}
+      DEFAULT_USER_LOGIN: ${DEFAULT_USER_LOGIN?}
       DEFAULT_USER_PASSWORD: ${DEFAULT_USER_PASSWORD}
       DOMAIN_NAME_FOR_UI: ${DOMAIN_NAME_FOR_UI}
     deploy:
